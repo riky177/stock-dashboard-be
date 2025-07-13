@@ -12,8 +12,8 @@ type Product struct {
 	Price     float64   `json:"price" binding:"required,gt=0"`
 	Stock     int       `json:"stock" binding:"required,gt=0"`
 	Category  string    `json:"category" binding:"required"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 type ProductUpdate struct {
@@ -22,7 +22,7 @@ type ProductUpdate struct {
 	Price     *float64  `json:"price,omitempty" binding:"omitempty,gt=0"`
 	Stock     *int      `json:"stock,omitempty"`
 	Category  *string   `json:"category,omitempty"`
-	UpdatedAt time.Time `json:"updated_at"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 type ProductFilter struct {
