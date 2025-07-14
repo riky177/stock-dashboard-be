@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"stock-dashboard/db"
 	"stock-dashboard/utils"
+	"strings"
 )
 
 type User struct {
@@ -26,7 +27,7 @@ func (u *User) ValidateCredentials() error {
 		SELECT id, password, role FROM users WHERE email = $1
 	`
 
-	row := db.DB.QueryRow(query, u.Email)
+	row := db.DB.QueryRow(query, strings.ToLower(u.Email))
 
 	var retrivedPassword string
 	err := row.Scan(&u.ID, &retrivedPassword, &u.Role)
@@ -55,7 +56,7 @@ func (u *User) Save() error {
 
 	query := `INSERT INTO users(email,password,role) VALUES($1,$2,$3) RETURNING id`
 
-	err = db.DB.QueryRow(query, u.Email, hashedPassword, u.Role).Scan(&u.ID)
+	err = db.DB.QueryRow(query, strings.ToLower(u.Email), hashedPassword, u.Role).Scan(&u.ID)
 
 	if err != nil {
 		return err
